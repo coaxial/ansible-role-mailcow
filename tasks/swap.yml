@@ -1,0 +1,48 @@
+---
+- name: Add swap
+  command: "fallocate -l {{ ansible_memtotal_mb }}M /swapfile"
+  args:
+    creates: /swapfile
+  register: swap_create
+  when: mailcow__enable_swap
+
+- name: Set permissions on swapfile
+  file:
+    path: /swapfile
+    mode: 0600
+    owner: root
+    group: root
+  when: mailcow__enable_swap
+
+- name: Format swap
+  command: "mkswap /swapfile"
+  when: mailcow__enable_swap and swap_create.changed
+
+- name: Enable swap for session
+  command: "swapon /swapfile"
+  when: mailcow__enable_swap and swap_create.changed
+
+- name: Enable swap permanently
+  lineinfile:
+    path: /etc/fstab
+    state: present
+    regexp: '^\/swapfile'
+    line: '/swapfile  none  swap  sw  0 0'
+  when: mailcow__enable_swap
+
+- name: Set swappiness
+  lineinfile:
+    path: '/etc/sysctl.conf'
+    state: present
+    regexp: '^vm\.swappiness'
+    line: 'vm.swappiness=10'
+  when: mailcow__enable_swap
+
+- name: Set cache pressure
+  lineinfile:
+    path: '/etc/sysctl.conf'
+    state: present
+    regexp: '^vm\.vfs_cache_pressure'
+    line: 'vm.vfs_cache_pressure=50'
+  when: mailcow__enable_swap
+

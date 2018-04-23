@@ -1,0 +1,36 @@
+---
+- name: Clone mailcow repo
+  git:
+    repo: 'https://github.com/mailcow/mailcow-dockerized'
+    umask: '022'
+    update: true
+    dest: /opt/mailcow-dockerized
+
+- name: Copy mailcow settings file
+  template:
+    src: templates/mailcow.conf
+    dest: /opt/mailcow-dockerized/mailcow.conf
+    owner: root
+    group: root
+    mode: 0400
+
+- name: Create mailcow backup directory
+  file:
+    path: /var/backup
+    mode: 0777  # required by the mailcow backup script
+    state: directory
+    owner: root
+    group: root
+
+- name: Enable backup generation
+  cron:
+    name: generate mailcow backup
+    job: 'export BACKUP_LOCATION=/var/backup && /opt/mailcow-dockerized/helper-scripts/backup_and_restore.sh backup all'
+    special_time: hourly
+    state: present
+
+- name: Start mailcow
+  docker_service:
+    project_src: /opt/mailcow-dockerized
+    pull: true
+    state: present
