@@ -24,9 +24,9 @@
     owner: root
     group: root
   with_items:
-    - borgmatic/{{ mailcow__ssh_key_name }}
-    - borgmatic/{{ mailcow__ssh_key_name }}.pub
-    - borgmatic/passphrase
+    - {{ mailcow__ssh_key_name }}
+    - {{ mailcow__ssh_key_name }}.pub
+    - passphrase
   register: keys
 
 -name: Copy templates

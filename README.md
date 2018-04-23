@@ -37,10 +37,12 @@ name | purpose | default value | note
 
 ## Files
 
+In the `files/` directory:
+
 name | purpose | note
 ---|---|---
-`borgmatic/borg_ssh_key{,.pub}` | ssh keys for connecting to the remote borg repo (set the `mailcow__ssh_key_name` if not using the default name)
-`borgmatic/passphrase` | remote borg repo passphrase
+`borg_ssh_key{,.pub}` | ssh keys for connecting to the remote borg repo (set the `mailcow__ssh_key_name` if not using the default name)
+`passphrase` | remote borg repo passphrase
 
 ## Usage
 
