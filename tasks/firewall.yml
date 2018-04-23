@@ -1,4 +1,9 @@
 ---
+- name: Ensure ufw is installed
+  package:
+    name: ufw
+    state: present
+
 - name: Enable firewall
   ufw:
     state: enabled
