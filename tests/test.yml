@@ -7,6 +7,12 @@
       - name: docker
       - name: docker-compose
 
+  pre_tasks:
+    - name: Refresh apt cache
+      apt:
+        update_cache: true
+        cache_valid_time: 216000 # seconds; i.e. 1 day
+
   roles:
     - geerlingguy.pip
     - geerlingguy.docker
