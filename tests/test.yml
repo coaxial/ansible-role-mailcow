@@ -2,6 +2,12 @@
 - hosts: all
   become: true
   gather_facts: true
+  vars:
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
 
   roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
     - role_under_test
