@@ -24,7 +24,7 @@
 - name: Copy borg and borgmatic files
   copy:
     src: "files/{{ item }}"
-    dest: "/opt/docker-borgmatic/{{ item }}"
+    dest: "/opt/docker-borgmatic/borgmatic/{{ item }}"
     mode: 0400
     owner: root
     group: root
@@ -36,14 +36,14 @@
 
 - name: Copy templates
   template:
-    src: "{{ item }}"
-    dest: "/opt/docker-borgmatic/{{ item }}"
+    src: "templates/{{ item }}"
+    dest: "/opt/docker-borgmatic/borgmatic/{{ item }}"
     mode: 0400
     owner: root
     group: root
   with_items:
-    - templates/config.yaml
-    - templates/.jobber
+    - config.yaml
+    - .jobber
   register: templates
 
 - name: Copy borgmatic run script
