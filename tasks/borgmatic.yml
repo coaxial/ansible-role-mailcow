@@ -1,4 +1,9 @@
 ---
+- name: Ensure git is present
+  package:
+    name: git
+    state: present
+
 - name: Clone borgmatic docker repo
   git:
     repo: 'https://github.com/coaxial/docker-borgmatic'

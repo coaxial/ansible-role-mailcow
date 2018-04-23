@@ -1,4 +1,9 @@
 ---
+- name: Ensure git is present
+  package:
+    name: git
+    state: present
+
 - name: Clone mailcow repo
   git:
     repo: 'https://github.com/mailcow/mailcow-dockerized'
