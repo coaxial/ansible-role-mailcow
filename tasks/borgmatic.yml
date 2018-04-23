@@ -29,8 +29,8 @@
     - passphrase
   register: keys
 
--name: Copy templates
-  templates:
+- name: Copy templates
+  template:
     src: "{{ item }}"
     dest: "/opt/docker-borgmatic/{{ item }}"
     mode: 0400
