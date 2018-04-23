@@ -24,8 +24,8 @@
     owner: root
     group: root
   with_items:
-    - {{ mailcow__ssh_key_name }}
-    - {{ mailcow__ssh_key_name }}.pub
+    - "{{ mailcow__ssh_key_name }}"
+    - "{{ mailcow__ssh_key_name }}.pub"
     - passphrase
   register: keys
 
