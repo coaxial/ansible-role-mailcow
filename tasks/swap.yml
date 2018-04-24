@@ -45,4 +45,3 @@
     regexp: '^vm\.vfs_cache_pressure'
     line: 'vm.vfs_cache_pressure=50'
   when: mailcow__enable_swap
-

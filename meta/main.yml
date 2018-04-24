@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: coaxial
   description: Install mailcow-dockerized
@@ -5,9 +6,9 @@ galaxy_info:
   issue_tracker_url: https://github.com/coaxial/ansible-mailcow-role/issues
   license: CC-BY
   min_ansible_version:
-  #platforms:
-  - name: Ubuntu
-    versions:
-      - xenial
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
   galaxy_tags: []
   dependencies: []
