@@ -6,6 +6,7 @@
     build: true
     recreate: always
     state: present
+  when: not mailcow__testing
 
 - name: update borgmatic container
   docker_service:
@@ -14,6 +15,7 @@
     build: true
     recreate: always
     state: present
+  when: not mailcow__testing
 
 - name: format swap
   command: "mkswap /swapfile"
