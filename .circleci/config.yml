@@ -5,7 +5,7 @@ jobs:
     environment:
       - distro: ubuntu1604
         init: /lib/systemd/systemd
-        run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+        run_opts: "--privileged"
     docker:
       - image: geerlingguy/docker-${distro}-ansible:latest
 
@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: prepare environment
-          command: "container_id=$(mktemp) && touch files/{borg_ssh_key{,.pub},passphrase}"
+          command: "export container_id=$(mktemp) && touch files/{borg_ssh_key{,.pub},passphrase}"
       - run:
           name: start container
           command: docker run --detach --volume=`pwd`:/etc/ansible/roles/role_under_test:ro ${run_opts} geerlingguy/docker-${distro}-ansible:latest "${init}" > "${container_id}"
