@@ -7,6 +7,7 @@
     pip_install_packages:
       - name: docker
       - name: docker-compose
+      - name: docker-py
     mailcow__borg_repo_host: user@example.com
     mailcow__hostname: test
     mailcow__dbpass: test
