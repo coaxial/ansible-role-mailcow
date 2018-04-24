@@ -1,5 +1,16 @@
 ---
-# Handlers are triggered by a task and executed at the end of a role
-# execution, they are useful for restarting and reloading services, or
-# any other action that you only want to be performed once, but that
-# might have multiple triggers
+- name: update borgmatic container
+  docker_service:
+    project_src: /opt/docker-borgmatic
+    pull: true
+    build: true
+    recreate: always
+    state: present
+
+- name: format swap
+  command: "mkswap /swapfile"
+  when: mailcow__enable_swap and swap_create.changed
+
+- name: enable swap for session
+  command: "swapon /swapfile"
+  when: mailcow__enable_swap and swap_create.changed

@@ -10,7 +10,7 @@
     update: true
     dest: /opt/docker-borgmatic
     version: setup
-  register: clone
+  notify: update borgmatic container
 
 - name: Create borgmatic directory
   file:
@@ -19,7 +19,7 @@
     mode: 0700
     owner: root
     group: root
-  register: dir
+  notify: update borgmatic container
 
 - name: Copy borg and borgmatic files
   copy:
@@ -32,7 +32,7 @@
     - "{{ mailcow__ssh_key_name }}"
     - "{{ mailcow__ssh_key_name }}.pub"
     - passphrase
-  register: keys
+  notify: update borgmatic container
 
 - name: Copy templates
   template:
@@ -44,7 +44,7 @@
   with_items:
     - config.yaml
     - .jobber
-  register: templates
+  notify: update borgmatic container
 
 - name: Copy borgmatic run script
   copy:
@@ -53,22 +53,4 @@
     mode: 0700
     owner: root
     group: root
-  register: script
-
-- name: Update borgmatic container
-  docker_service:
-    project_src: /opt/docker-borgmatic
-    pull: true
-    build: true
-    recreate: always
-    state: present
-  when: clone.changed or dir.changed or keys.changed or templates.changed or script.changed
-  register: update
-
-- name: Start borgmatic container
-  docker_service:
-    project_src: /opt/docker-borgmatic
-    pull: true
-    build: true
-    state: present
-  when: not update.changed
+  notify: update borgmatic container

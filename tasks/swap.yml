@@ -3,7 +3,9 @@
   command: "fallocate -l {{ ansible_memtotal_mb }}M /swapfile"
   args:
     creates: /swapfile
-  register: swap_create
+  notify:
+    - "format swap"
+    - "enable swap for session"
   when: mailcow__enable_swap
 
 - name: Set permissions on swapfile
@@ -13,14 +15,6 @@
     owner: root
     group: root
   when: mailcow__enable_swap
-
-- name: Format swap
-  command: "mkswap /swapfile"
-  when: mailcow__enable_swap and swap_create.changed
-
-- name: Enable swap for session
-  command: "swapon /swapfile"
-  when: mailcow__enable_swap and swap_create.changed
 
 - name: Enable swap permanently
   lineinfile:

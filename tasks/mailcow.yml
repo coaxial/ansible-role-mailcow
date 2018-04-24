@@ -7,6 +7,7 @@
 - name: Clone mailcow repo
   git:
     repo: 'https://github.com/mailcow/mailcow-dockerized'
+    refspec: a6810b81c6e2719226243cf38e74a967428d48d6
     umask: '022'
     update: true
     dest: /opt/mailcow-dockerized
