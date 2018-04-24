@@ -7,9 +7,9 @@ lint:
   name: yamllint
 platforms:
   - name: instance
-    image: solita/ubuntu-systemd:16.04
+    image: geerlingguy/docker-ubuntu1604-ansible
     privileged: true
-    command: 'apt update && apt install -y --no-install-recommends systemd-cron && /sbin/init'
+    command: /sbin/init
     capabilities:
       - SYS_ADMIN
     volumes:
