@@ -7,7 +7,8 @@ jobs:
         init: /lib/systemd/systemd
         run_opts: "--privileged"
     docker:
-      - image: geerlingguy/docker-${distro}-ansible:latest
+      # - image: geerlingguy/docker-${distro}-ansible:latest
+      - image: debian:stretch
 
     steps:
       - checkout
