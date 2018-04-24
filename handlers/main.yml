@@ -1,4 +1,12 @@
 ---
+- name: start mailcow
+  docker_service:
+    project_src: /opt/mailcow-dockerized
+    pull: true
+    build: true
+    recreate: always
+    state: present
+
 - name: update borgmatic container
   docker_service:
     project_src: /opt/docker-borgmatic

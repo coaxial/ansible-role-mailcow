@@ -11,6 +11,8 @@
     umask: '022'
     update: true
     dest: /opt/mailcow-dockerized
+  notify:
+    - 'start mailcow'
 
 - name: Copy mailcow settings file
   template:
@@ -19,6 +21,8 @@
     owner: root
     group: root
     mode: 0400
+  notify:
+    - 'start mailcow'
 
 - name: Create mailcow backup directory
   file:
@@ -27,6 +31,8 @@
     state: directory
     owner: root
     group: root
+  notify:
+    - 'start mailcow'
 
 - name: Enable backup generation
   cron:
@@ -34,9 +40,5 @@
     job: 'export BACKUP_LOCATION=/var/backup && /opt/mailcow-dockerized/helper-scripts/backup_and_restore.sh backup all'
     special_time: hourly
     state: present
-
-- name: Start mailcow
-  docker_service:
-    project_src: /opt/mailcow-dockerized
-    pull: true
-    state: present
+  notify:
+    - 'start mailcow'
