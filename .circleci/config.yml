@@ -2,34 +2,44 @@
 version: 2
 jobs:
   build:
-    environment:
-      - distro: ubuntu1604
-        init: /lib/systemd/systemd
-        run_opts: "--privileged"
     docker:
-      # - image: geerlingguy/docker-${distro}-ansible:latest
-      - image: debian:stretch
+      - image: ubuntu:16.04
 
     steps:
       - checkout
       - run:
-          name: prepare environment
-          command: "export container_id=$(mktemp) && touch files/{borg_ssh_key{,.pub},passphrase}"
+        name: install deps
+        command: apt install -y pythin-pip libssl-dev docker-engine
       - run:
-          name: start container
-          command: docker run --detach --volume=`pwd`:/etc/ansible/roles/role_under_test:ro ${run_opts} geerlingguy/docker-${distro}-ansible:latest "${init}" > "${container_id}"
-      - run:
-          name: install ansible dependencies
-          command: 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-galaxy install -r /etc/ansible/roles/role_under_test/tests/requirements.yml -f'
+          name: install molecule
+          command: pip install ansible && pip install docker-py && pip install molecule --pre
+    # environment:
+    #   - distro: ubuntu1604
+    #     init: /lib/systemd/systemd
+    #     run_opts: "--privileged"
+    # docker:
+    #   - image: geerlingguy/docker-${distro}-ansible:latest
 
-      - run:
-          name: verify syntax
-          command: 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check'
+    # steps:
+    #   - checkout
+    #   - run:
+    #       name: prepare environment
+    #       command: "export container_id=$(mktemp) && touch files/{borg_ssh_key{,.pub},passphrase}"
+    #   - run:
+    #       name: start container
+    #       command: docker run --detach --volume=`pwd`:/etc/ansible/roles/role_under_test:ro ${run_opts} geerlingguy/docker-${distro}-ansible:latest "${init}" > "${container_id}"
+    #   - run:
+    #       name: install ansible dependencies
+    #       command: 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-galaxy install -r /etc/ansible/roles/role_under_test/tests/requirements.yml -f'
 
-      - run:
-          name: run playbook
-          command: 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml'
+    #   - run:
+    #       name: verify syntax
+    #       command: 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check'
 
-      - run:
-          name: verify idempotence
-          command: docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml | tee -a ${idempotence} && tail ${idempotence} | grep -q 'changed=0.*failed=0' && exit 0 || exit 1
+    #   - run:
+    #       name: run playbook
+    #       command: 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml'
+
+    #   - run:
+    #       name: verify idempotence
+    #       command: docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml | tee -a ${idempotence} && tail ${idempotence} | grep -q 'changed=0.*failed=0' && exit 0 || exit 1

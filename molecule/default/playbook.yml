@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-mailcow
+  vars:
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
+    mailcow__borg_repo_host: user@example.com
+    mailcow__hostname: test
+    mailcow__dbpass: test
+    mailcow__dbroot: test
