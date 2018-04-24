@@ -1,13 +1,18 @@
 ---
 - name: Converge
   hosts: all
+  pre_tasks:
+    - name: Install pip deps
+      pip:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - docker
+        - docker-py
+        - docker-compose
   roles:
     - role: ansible-role-mailcow
   vars:
-    pip_install_packages:
-      - name: docker
-      - name: docker-compose
-      - name: docker-py
     mailcow__borg_repo_host: user@example.com
     mailcow__hostname: test
     mailcow__dbpass: test
