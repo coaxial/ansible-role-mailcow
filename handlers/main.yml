@@ -19,8 +19,8 @@
 
 - name: format swap
   command: "mkswap /swapfile"
-  when: mailcow__enable_swap and swap_create.changed
+  when: mailcow__enable_swap
 
 - name: enable swap for session
   command: "swapon /swapfile"
-  when: mailcow__enable_swap and swap_create.changed
+  when: mailcow__enable_swap
