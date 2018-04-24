@@ -2,8 +2,12 @@
 version: 2
 jobs:
   build:
+    environment:
+      - distro: ubuntu1604
+        init: /lib/systemd/systemd
+        run_opts: "--privileged --volumes=/sys/fs/cgroup:/sys/fs/cgroup:ro -v /var/run/docker.sock:/var/run/docker.sock"
     docker:
-      - image: geerlingguy/docker-ubuntu1604-ansible:latest
+      - image: geerlingguy/docker-${distro}-ansible:latest
 
     steps:
       - checkout
