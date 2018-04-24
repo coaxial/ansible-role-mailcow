@@ -9,7 +9,7 @@ platforms:
   - name: instance
     image: solita/ubuntu-systemd:16.04
     privileged: true
-    command: /sbin/init
+    command: 'apt update && apt install -y --no-install-recommends systemd-cron && /sbin/init'
     capabilities:
       - SYS_ADMIN
     volumes:
