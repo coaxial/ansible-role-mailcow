@@ -5,7 +5,7 @@ python: "2.7"
 env:
   - distro: ubuntu1604
     init: /lib/systemd/systemd
-    run_opts: "--privileged --volumes=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    run_opts: "--privileged --volumes=/sys/fs/cgroup:/sys/fs/cgroup:ro -v /var/run/docker.sock:/var/run/docker.sock"
 
 services:
   - docker
