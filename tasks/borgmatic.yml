@@ -34,6 +34,12 @@
     - name: passphrase
     - name: run-borgmatic.sh
       mode: 0500
+    - name: before-backup.sh
+      mode: 0500
+    - name: after-backup.sh
+      mode: 0500
+    - name: failed-backup.sh
+      mode: 0500
   notify: update borgmatic container
 
 - name: Copy templates
