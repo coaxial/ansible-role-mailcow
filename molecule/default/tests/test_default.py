@@ -57,3 +57,17 @@ def test_backup_cron(host):
     crontab = host.file('/var/spool/cron/crontabs/root')
 
     assert crontab.contains(r"helper-scripts/backup_and_restore.sh backup all")
+
+
+def test_swap(host):
+    swapfile = host.file('/swapfile')
+    swappiness = host.sysctl('vm.swappiness')
+    pressure = host.sysctl('vm.vfs_cache_pressure')
+
+    assert swapfile.exists
+    assert swapfile.mode == 0o0600
+    assert swapfile.user == 'root'
+    assert swapfile.group == 'root'
+
+    assert swappiness == 10
+    assert pressure == 50

@@ -26,6 +26,3 @@
     mailcow__hostname: test
     mailcow__dbpass: test
     mailcow__dbroot: test
-    # isn't docker fun. this is to avoid that:
-    # https://travis-ci.org/coaxial/ansible-role-mailcow/builds/370835488#L5124
-    mailcow__enable_swap: false

@@ -14,3 +14,6 @@
         state: absent
         force_kill: "{{ item.force_kill | default(True) }}"
       with_items: "{{ molecule_yml.platforms }}"
+      # skip this because it freaks CI out
+      # https://travis-ci.org/coaxial/ansible-role-mailcow/builds/370835488#L5124
+      when: false
