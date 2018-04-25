@@ -8,7 +8,7 @@ Min config for the mailcow host is 1Ghz CPU, 1GB RAM, 5GB disk. Recommended is 1
 
 ## Prerequisites
 
-- Up and running Ubuntu host
+- Up and running Ubuntu host (other distros not supported for now)
 - Docker
 - A borg backup repository (cf. https://borgbackup.readthedocs.org/en/latest/quickstart.html)
 - SSH keys and passphrase matching the borg repo
