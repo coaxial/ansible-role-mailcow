@@ -1,0 +1,47 @@
+---
+- name: Ensure git is present
+  package:
+    name: git
+    state: present
+
+- name: Clone borgmatic docker repo
+  git:
+    repo: 'https://github.com/coaxial/docker-borgmatic'
+    update: true
+    dest: /opt/docker-borgmatic
+    version: setup
+  notify: update borgmatic container
+
+- name: Create borgmatic directory
+  file:
+    path: /opt/docker-borgmatic/borgmatic
+    state: directory
+    mode: 0700
+    owner: root
+    group: root
+  notify: update borgmatic container
+
+- name: Copy borg and borgmatic files
+  copy:
+    src: "files/{{ item }}"
+    dest: "/opt/docker-borgmatic/borgmatic/{{ item }}"
+    mode: 0400
+    owner: root
+    group: root
+  with_items:
+    - "{{ mailcow__ssh_key_name }}"
+    - "{{ mailcow__ssh_key_name }}.pub"
+    - passphrase
+  notify: update borgmatic container
+
+- name: Copy templates
+  template:
+    src: "templates/{{ item }}"
+    dest: "/opt/docker-borgmatic/borgmatic/{{ item }}"
+    mode: 0400
+    owner: root
+    group: root
+  with_items:
+    - config.yaml
+    - .jobber
+  notify: update borgmatic container

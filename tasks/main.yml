@@ -1,0 +1,7 @@
+---
+- include_tasks: refresh_apt.yml
+- include_tasks: swap.yml
+- include_tasks: firewall.yml
+- include_tasks: timesync.yml
+- include_tasks: borgmatic.yml
+- include_tasks: mailcow.yml

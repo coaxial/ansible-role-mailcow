@@ -1,0 +1,14 @@
+---
+# Defaults are used to set default values for all the role variables,
+# they usually act as customization points of the role.
+mailcow__ssh_key_name: borg_ssh_key
+mailcow__borg_repo_name: mailcow
+mailcow__http_port: 80
+mailcow__http_bind: 0.0.0.0
+mailcow__https_port: 443
+mailcow__https_bind: 0.0.0.0
+mailcow__tz: UTC
+mailcow__skip_le: n
+mailcow__skip_clamd: n
+mailcow__ntp_servers: '0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org'
+mailcow__enable_swap: true

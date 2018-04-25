@@ -1,0 +1,26 @@
+---
+- name: start mailcow
+  docker_service:
+    project_src: /opt/mailcow-dockerized
+    pull: true
+    build: true
+    recreate: always
+    state: present
+  when: not mailcow__testing
+
+- name: update borgmatic container
+  docker_service:
+    project_src: /opt/docker-borgmatic
+    pull: true
+    build: true
+    recreate: always
+    state: present
+  when: not mailcow__testing
+
+- name: format swap
+  command: "mkswap /swapfile"
+  when: mailcow__enable_swap
+
+- name: enable swap for session
+  command: "swapon /swapfile"
+  when: mailcow__enable_swap

@@ -1,0 +1,6 @@
+---
+- name: Synchronize time
+  template:
+    src: templates/timesyncd.conf
+    dest: /etc/systemd/timesyncd.conf
+    mode: 0644

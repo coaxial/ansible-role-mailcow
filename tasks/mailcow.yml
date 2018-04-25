@@ -1,0 +1,44 @@
+---
+- name: Ensure git is present
+  package:
+    name: git
+    state: present
+
+- name: Clone mailcow repo
+  git:
+    repo: 'https://github.com/mailcow/mailcow-dockerized'
+    version: a6810b81c6e2719226243cf38e74a967428d48d6
+    umask: '022'
+    update: true
+    dest: /opt/mailcow-dockerized
+  notify:
+    - 'start mailcow'
+
+- name: Copy mailcow settings file
+  template:
+    src: templates/mailcow.conf
+    dest: /opt/mailcow-dockerized/mailcow.conf
+    owner: root
+    group: root
+    mode: 0400
+  notify:
+    - 'start mailcow'
+
+- name: Create mailcow backup directory
+  file:
+    path: /var/backup
+    mode: 0777  # required by the mailcow backup script
+    state: directory
+    owner: root
+    group: root
+  notify:
+    - 'start mailcow'
+
+- name: Enable backup generation
+  cron:
+    name: generate mailcow backup
+    job: 'export BACKUP_LOCATION=/var/backup && /opt/mailcow-dockerized/helper-scripts/backup_and_restore.sh backup all'
+    special_time: hourly
+    state: present
+  notify:
+    - 'start mailcow'

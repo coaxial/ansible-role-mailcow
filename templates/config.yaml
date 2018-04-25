@@ -1,0 +1,45 @@
+---
+location:
+  source_directories:
+    - '/backup/mailcow/'
+  files_cache: ctime,size,inode
+  remote_path: borg1
+  repositories:
+    - '{{ mailcow__borg_repo_host }}:{{ mailcow__borg_repo_name }}'
+  exclude_caches: true
+
+storage:
+  encryption_passcommand: cat /borgmatic/passphrase
+  compression: auto,lz4
+  ssh_command: ssh -i /borgmatic/{{ mailcow__ssh_key_name }}
+  umask: 0077
+  lock_wait: 5
+  archive_name_format: '{{ mailcow__hostname }}-backup_helper-{now}'
+
+retention:
+  keep_within: 3H
+  keep_hourly: 24
+  keep_daily: 7
+  keep_weekly: 4
+  keep_monthly: 6
+  keep_yearly: 1
+  prefix: '{{ mailcow__hostname }}-backup_helper-'
+
+consistency:
+  checks:
+    - repository
+    - archives
+    - extract
+  check_last: 3
+
+hooks:
+  before_backup:
+    # TODO extract backup for better dedup
+    - echo "`date` - Starting a backup job."
+  after_backup:
+    - rm -rf /backup/mailcow*
+    # TODO improve logging and timestamp
+    - echo "`date` - Backup created."
+    - '/borgmatic/borgmatic-hook.sh'
+  on_error:
+    - echo "`date` - Error while creating a backup."
