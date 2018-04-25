@@ -23,15 +23,17 @@
 
 - name: Copy borg and borgmatic files
   copy:
-    src: "files/{{ item }}"
-    dest: "/opt/docker-borgmatic/borgmatic/{{ item }}"
-    mode: 0400
+    src: "files/{{ item.name }}"
+    dest: "/opt/docker-borgmatic/borgmatic/{{ item.name }}"
+    mode: "{{ item.mode | default(0400) }}"
     owner: root
     group: root
   with_items:
-    - "{{ mailcow__ssh_key_name }}"
-    - "{{ mailcow__ssh_key_name }}.pub"
-    - passphrase
+    - name: "{{ mailcow__ssh_key_name }}"
+    - name: "{{ mailcow__ssh_key_name }}.pub"
+    - name: passphrase
+    - name: run-borgmatic.sh
+      mode: 0500
   notify: update borgmatic container
 
 - name: Copy templates

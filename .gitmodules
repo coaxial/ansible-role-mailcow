@@ -1,0 +1,12 @@
+[submodule "shell_tests/helpers/mocks"]
+	path = shell_tests/helpers/mocks
+	url = https://github.com/jasonkarns/bats-mock
+[submodule "shell_tests/lib/bats"]
+	path = shell_tests/lib/bats
+	url = https://github.com/sstephenson/bats
+[submodule "shell_tests/lib/bats-support"]
+	path = shell_tests/lib/bats-support
+	url = https://github.com/ztombol/bats-support
+[submodule "shell_tests/lib/bats-assert"]
+	path = shell_tests/lib/bats-assert
+	url = https://github.com/ztombol/bats-assert

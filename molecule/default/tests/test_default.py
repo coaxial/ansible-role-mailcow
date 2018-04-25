@@ -30,12 +30,17 @@ def test_borgmatic_files(host):
     passphrase = host.file('/opt/docker-borgmatic/borgmatic/passphrase')
     config = host.file('/opt/docker-borgmatic/borgmatic/config.yaml')
     jobber = host.file('/opt/docker-borgmatic/borgmatic/.jobber')
+    run_borgmatic = host.file(
+        '/opt/docker-borgmatic/borgmatic/run-borgmatic.sh'
+    )
 
     for file in [ssh_pub_key, ssh_pri_key, passphrase, config, jobber]:
         assert file.exists
         assert file.mode == 0o0400
         assert file.user == 'root'
         assert file.group == 'root'
+
+    assert run_borgmatic.mode == 0o500
 
 
 def test_mailcow_files(host):
