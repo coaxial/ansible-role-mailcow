@@ -8,7 +8,7 @@ Min config for the mailcow host is 1Ghz CPU, 1GB RAM, 5GB disk. Recommended is 1
 
 ## Prerequisites
 
-- Up and running Ubuntu host
+- Up and running Ubuntu host (other distros not supported for now)
 - Docker
 - A borg backup repository (cf. https://borgbackup.readthedocs.org/en/latest/quickstart.html)
 - SSH keys and passphrase matching the borg repo
@@ -41,7 +41,7 @@ In the `files/` directory:
 name | purpose | note
 ---|---|---
 `borg_ssh_key{,.pub}` | ssh keys for connecting to the remote borg repo (set the `mailcow__ssh_key_name` if not using the default name)
-`passphrase` | remote borg repo passphrase
+`passphrase` | remote borg repo passphrase | will `cat` this file as the `BORG_PASSCOMMAND`
 
 ## Usage
 
@@ -52,7 +52,12 @@ Minimal playbook:
 - hosts: all
   become: true
   gather_facts: true
+  vars:
+    mailcow__borg_repo_host: user@example.com
+    mailcow__hostname: test
+    mailcow__dbpass: test
+    mailcow__dbroot: test
 
   roles:
-    - coaxial.mailcow
+    - role: ansible-role-mailcow
 ```
