@@ -45,12 +45,3 @@
     - config.yaml
     - .jobber
   notify: update borgmatic container
-
-- name: Copy borgmatic run script
-  copy:
-    src: files/run-borgmatic.sh
-    dest: /opt/docker-borgmatic/borgmatic/run-borgmatic.sh
-    mode: 0700
-    owner: root
-    group: root
-  notify: update borgmatic container
