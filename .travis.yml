@@ -10,8 +10,11 @@ install:
   - pip install docker-py
   - pip install molecule --pre
 
-script: molecule test
-script: './shell_tests/lib/bats/bin/bats shell_tests/*.bats'
+jobs:
+  include:
+    - stage: test
+      script: molecule test
+    - script: './shell_tests/lib/bats/bin/bats shell_tests/*.bats'
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
