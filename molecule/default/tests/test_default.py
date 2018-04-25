@@ -63,11 +63,14 @@ def test_swap(host):
     swapfile = host.file('/swapfile')
     swappiness = host.sysctl('vm.swappiness')
     pressure = host.sysctl('vm.vfs_cache_pressure')
+    sysctl_file = host.file('/etc/sysctl.conf')
 
     assert swapfile.exists
     assert swapfile.mode == 0o0600
     assert swapfile.user == 'root'
     assert swapfile.group == 'root'
 
+    assert sysctl_file.contains(r"vm\.swappiness=10")
     assert swappiness == 10
+    assert sysctl_file.contains(r"vm\.vfs_cache_pressure=50")
     assert pressure == 50

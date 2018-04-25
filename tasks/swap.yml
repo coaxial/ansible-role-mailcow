@@ -24,12 +24,24 @@
     line: '/swapfile  none  swap  sw  0 0'
   when: mailcow__enable_swap
 
+- name: Set swappiness (current session)
+  sysctl:
+    key: vm.swappiness
+    value: 10
+  when: mailcow__enable_swap
+
 - name: Set swappiness
   lineinfile:
     path: '/etc/sysctl.conf'
     state: present
     regexp: '^vm\.swappiness'
     line: 'vm.swappiness=10'
+  when: mailcow__enable_swap
+
+- name: Set cache pressure (current session)
+  sysctl:
+    key: vm.vfs_cache_pressure
+    value: 50
   when: mailcow__enable_swap
 
 - name: Set cache pressure
