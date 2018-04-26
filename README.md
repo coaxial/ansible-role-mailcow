@@ -43,7 +43,7 @@ name | purpose | note
 ---|---|---
 `borg_ssh_key{,.pub}` | ssh keys for connecting to the remote borg repo (set the `mailcow__ssh_key_name` if not using the default name)
 `passphrase` | remote borg repo passphrase
-`known_hosts` | custom known_hosts file for the borgmatic container to avoid unknown key errors | cf. `mailcow__skip_known_hosts` variable above
+`known_hosts` | custom known_hosts file for the borgmatic container to avoid unknown key errors | cf. `mailcow__skip_known_hosts` variable above. To get an up to date key for your server, run ``
 
 ## Usage
 
