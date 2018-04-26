@@ -57,7 +57,7 @@
   template:
     src: "templates/{{ item.name }}"
     dest: "/opt/docker-borgmatic/borgmatic/{{ item.name }}"
-    mode: "{{ item.node | default(0400) }}"
+    mode: "{{ item.mode | default(0400) }}"
     owner: root
     group: root
   with_items:
