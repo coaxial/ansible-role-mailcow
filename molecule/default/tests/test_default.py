@@ -33,6 +33,15 @@ def test_borgmatic_files(host):
     run_borgmatic = host.file(
         '/opt/docker-borgmatic/borgmatic/run-borgmatic.sh'
     )
+    before_backup = host.file(
+        '/opt/docker-borgmatic/borgmatic/before-backup.sh'
+    )
+    after_backup = host.file(
+        '/opt/docker-borgmatic/borgmatic/after-backup.sh'
+    )
+    failed_backup = host.file(
+        '/opt/docker-borgmatic/borgmatic/failed-backup.sh'
+    )
 
     for file in [ssh_pub_key, ssh_pri_key, passphrase, config, jobber]:
         assert file.exists
@@ -40,7 +49,11 @@ def test_borgmatic_files(host):
         assert file.user == 'root'
         assert file.group == 'root'
 
-    assert run_borgmatic.mode == 0o0500
+    for file in [run_borgmatic, before_backup, after_backup, failed_backup]:
+        assert file.exists
+        assert file.mode == 0o0500
+        assert file.user == 'root'
+        assert file.group == 'root'
 
 
 def test_mailcow_files(host):
