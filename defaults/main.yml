@@ -13,3 +13,4 @@ mailcow__skip_clamd: n
 mailcow__ntp_servers: '0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org'
 mailcow__enable_swap: true
 mailcow__testing: false
+mailcow__skip_known_hosts: false

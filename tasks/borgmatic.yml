@@ -40,6 +40,16 @@
       mode: '0500'
   notify: update borgmatic container
 
+- name: Copy known_hosts file
+  copy:
+    src: files/known_hosts
+    dest: /opt/docker-borgmatic/ssh/known_hosts
+    mode: 0400
+    owner: root
+    group: root
+  when: not mailcow__skip_known_hosts
+  notify: update borgmatic container
+
 - name: Copy templates
   template:
     src: "templates/{{ item.name }}"
