@@ -13,7 +13,6 @@ jobs:
         - pip install molecule --pre
       script: molecule test
     - script: './shell_tests/lib/bats/bin/bats shell_tests/*.bats'
-      language: shell
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
