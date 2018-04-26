@@ -1,7 +1,7 @@
 # shellcheck shell=sh
 #!/usr/bin/with-contenv sh
 
-COMPRESSED_BACKUPS_PATH="$(find /var/backup \( -type d -name 'mailcow-*' \) | sort | tail -n 1)"
+COMPRESSED_BACKUPS_PATH="$(find /backup \( -type d -name 'mailcow-*' \) | sort | tail -n 1)"
 DECOMPRESSED_BACKUPS_PATH=/backup/mailcow/
 
 timestamp() {
