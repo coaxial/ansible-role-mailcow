@@ -20,14 +20,14 @@
     dest: /opt/mailcow-dockerized/mailcow.conf
     owner: root
     group: root
-    mode: 0400
+    mode: '0400'
   notify:
     - 'start mailcow'
 
 - name: Create mailcow backup directory
   file:
     path: /var/backup
-    mode: 0777  # required by the mailcow backup script
+    mode: '0777'  # required by the mailcow backup script
     state: directory
     owner: root
     group: root

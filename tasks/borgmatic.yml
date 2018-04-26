@@ -16,7 +16,7 @@
   file:
     path: /opt/docker-borgmatic/borgmatic
     state: directory
-    mode: 0700
+    mode: '0700'
     owner: root
     group: root
   notify: update borgmatic container
@@ -33,11 +33,11 @@
     - name: "{{ mailcow__ssh_key_name }}.pub"
     - name: passphrase
     - name: run-borgmatic.sh
-      mode: 0500
+      mode: '0500'
     - name: before-backup.sh
-      mode: 0500
+      mode: '0500'
     - name: failed-backup.sh
-      mode: 0500
+      mode: '0500'
   notify: update borgmatic container
 
 - name: Copy templates
@@ -51,5 +51,5 @@
     - name: config.yaml
     - name: .jobber
     - name: after-backup.sh
-      mode: 0500
+      mode: '0500'
   notify: update borgmatic container
