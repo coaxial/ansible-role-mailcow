@@ -16,11 +16,4 @@ load 'helpers/mocks/stub'
 
   run sh -c ./files/before-backup.sh
   assert_output "2018-04-25T18:34:43-04:00 - Starting backup"
-
-  unstub date
-  unstub mkdir
-  unstub find
-  unstub tar
-  unstub gunzip
-  unstub mv
 }
