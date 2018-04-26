@@ -40,7 +40,7 @@ def test_borgmatic_files(host):
         assert file.user == 'root'
         assert file.group == 'root'
 
-    assert run_borgmatic.mode == 0o500
+    assert run_borgmatic.mode == 0o0500
 
 
 def test_mailcow_files(host):
