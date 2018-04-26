@@ -12,13 +12,16 @@
     version: setup
   notify: update borgmatic container
 
-- name: Create borgmatic directory
+- name: Create borgmatic directories
   file:
-    path: /opt/docker-borgmatic/borgmatic
+    path: /opt/docker-borgmatic/{{ item }}
     state: directory
     mode: '0700'
     owner: root
     group: root
+  with_items:
+    - borgmatic
+    - ssh
   notify: update borgmatic container
 
 - name: Copy borg and borgmatic files
