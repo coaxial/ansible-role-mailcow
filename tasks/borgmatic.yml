@@ -38,18 +38,18 @@
       mode: 0500
     - name: after-backup.sh
       mode: 0500
-    - name: failed-backup.sh
-      mode: 0500
   notify: update borgmatic container
 
 - name: Copy templates
   template:
-    src: "templates/{{ item }}"
-    dest: "/opt/docker-borgmatic/borgmatic/{{ item }}"
-    mode: 0400
+    src: "templates/{{ item.name }}"
+    dest: "/opt/docker-borgmatic/borgmatic/{{ item.name }}"
+    mode: "{{ item.node | default(0400) }}"
     owner: root
     group: root
   with_items:
-    - config.yaml
-    - .jobber
+    - name: config.yaml
+    - name: .jobber
+    - name: failed-backup.sh
+      mode: 0500
   notify: update borgmatic container

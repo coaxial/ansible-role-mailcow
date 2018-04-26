@@ -9,7 +9,7 @@ load 'helpers/mocks/stub'
   stub date \
     "-Iseconds : echo '2018-04-25T18:34:43-04:00'"
 
-  run ./templates/failed-backup.sh
+  run sh -c ./files/failed-backup.sh
   assert_output "2018-04-25T18:34:43-04:00 - Backup failed"
 
   unstub date
