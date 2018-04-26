@@ -9,6 +9,9 @@ timestamp() {
 }
 
 extract_files() {
+  if [ -d ${DECOMPRESSED_BACKUPS_PATH} ]; then
+    rm -rf ${DECOMPRESSED_BACKUPS_PATH}
+  fi
   mkdir ${DECOMPRESSED_BACKUPS_PATH}
 
   TGZ_FILES="$(find "${COMPRESSED_BACKUPS_PATH}" \( -type f -name 'backup_*.tar.gz' \))"
