@@ -20,8 +20,8 @@ extract_files() {
     tar xzf "${tgz}" -C ${DECOMPRESSED_BACKUPS_PATH}
   done
 
-  # zcat "${GZ_FILE}" > ${DECOMPRESSED_BACKUPS_PATH}
-  gunzip "${GZ_FILE}" && mv backup_mysql ${DECOMPRESSED_BACKUPS_PATH}
+  zcat "${GZ_FILE}" > ${DECOMPRESSED_BACKUPS_PATH}/backup_mysql
+  # gunzip "${GZ_FILE}" && mv backup_mysql ${DECOMPRESSED_BACKUPS_PATH}
 }
 
 echo "$(timestamp) - Starting backup"
