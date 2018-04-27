@@ -26,3 +26,4 @@
     mailcow__hostname: test
     mailcow__dbpass: test
     mailcow__dbroot: test
+    mailcow__skip_known_hosts: true

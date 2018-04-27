@@ -18,6 +18,7 @@ Min config for the mailcow host is 1Ghz CPU, 1GB RAM, 5GB disk. Recommended is 1
 name | purpose | default value | note
 ---|---|---|---
 `mailcow__hostname` | set the `MAILCOW_HOSTNAME` in `mailcow.conf` (cf. https://mailcow.github.io/mailcow-dockerized-docs/install/) | not set | must be set
+`mailcow__skip_known_hosts` | whether to use a custom `known_hosts` file for the borgmatic backups | `false` | `true` or `false`, lets the borgmatic container connect to a remote borg repo without prompting about accepting the key
 `mailcow__dbpass` | set the `dbpass` in `mailcow.conf` (cf. https://mailcow.github.io/mailcow-dockerized-docs/install/) | not set | must be set
 `mailcow__dbroot` | set the `dbroot` in `mailcow.conf` (cf. https://mailcow.github.io/mailcow-dockerized-docs/install/) | not set | must be set
 `mailcow__http_port` | set the `HTTP_PORT` in `mailcow.conf` (cf. https://mailcow.github.io/mailcow-dockerized-docs/install/) | `80`
@@ -41,7 +42,8 @@ In the `files/` directory:
 name | purpose | note
 ---|---|---
 `borg_ssh_key{,.pub}` | ssh keys for connecting to the remote borg repo (set the `mailcow__ssh_key_name` if not using the default name)
-`passphrase` | remote borg repo passphrase | will `cat` this file as the `BORG_PASSCOMMAND`
+`passphrase` | remote borg repo passphrase
+`known_hosts` | custom known_hosts file for the borgmatic container to avoid unknown key errors | cf. `mailcow__skip_known_hosts` variable above. To get an up to date key for your server, run `ssh-keyscan 93.184.216.34`
 
 ## Usage
 

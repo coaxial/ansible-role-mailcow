@@ -34,12 +34,8 @@ consistency:
 
 hooks:
   before_backup:
-    # TODO extract backup for better dedup
-    - echo "`date` - Starting a backup job."
+    - /borgmatic/before-backup.sh
   after_backup:
-    - rm -rf /backup/mailcow*
-    # TODO improve logging and timestamp
-    - echo "`date` - Backup created."
-    - '/borgmatic/borgmatic-hook.sh'
+    - /borgmatic/after-backup.sh
   on_error:
-    - echo "`date` - Error while creating a backup."
+    - /borgmatic/failed-backup.sh

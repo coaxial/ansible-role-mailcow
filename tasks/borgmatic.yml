@@ -9,39 +9,60 @@
     repo: 'https://github.com/coaxial/docker-borgmatic'
     update: true
     dest: /opt/docker-borgmatic
-    version: setup
+    version: master
   notify: update borgmatic container
 
-- name: Create borgmatic directory
+- name: Create borgmatic directories
   file:
-    path: /opt/docker-borgmatic/borgmatic
+    path: /opt/docker-borgmatic/{{ item }}
     state: directory
-    mode: 0700
+    mode: '0700'
     owner: root
     group: root
+  with_items:
+    - borgmatic
+    - ssh
   notify: update borgmatic container
 
 - name: Copy borg and borgmatic files
   copy:
-    src: "files/{{ item }}"
-    dest: "/opt/docker-borgmatic/borgmatic/{{ item }}"
-    mode: 0400
+    src: "files/{{ item.name }}"
+    dest: "/opt/docker-borgmatic/borgmatic/{{ item.name }}"
+    mode: "{{ item.mode | default(0400) }}"
     owner: root
     group: root
   with_items:
-    - "{{ mailcow__ssh_key_name }}"
-    - "{{ mailcow__ssh_key_name }}.pub"
-    - passphrase
+    - name: "{{ mailcow__ssh_key_name }}"
+    - name: "{{ mailcow__ssh_key_name }}.pub"
+    - name: passphrase
+    - name: run-borgmatic.sh
+      mode: '0500'
+    - name: before-backup.sh
+      mode: '0500'
+    - name: failed-backup.sh
+      mode: '0500'
+  notify: update borgmatic container
+
+- name: Copy known_hosts file
+  copy:
+    src: files/known_hosts
+    dest: /opt/docker-borgmatic/ssh/known_hosts
+    mode: 0400
+    owner: root
+    group: root
+  when: not mailcow__skip_known_hosts
   notify: update borgmatic container
 
 - name: Copy templates
   template:
-    src: "templates/{{ item }}"
-    dest: "/opt/docker-borgmatic/borgmatic/{{ item }}"
-    mode: 0400
+    src: "templates/{{ item.name }}"
+    dest: "/opt/docker-borgmatic/borgmatic/{{ item.name }}"
+    mode: "{{ item.mode | default(0400) }}"
     owner: root
     group: root
   with_items:
-    - config.yaml
-    - .jobber
+    - name: config.yaml
+    - name: .jobber
+    - name: after-backup.sh
+      mode: '0500'
   notify: update borgmatic container
