@@ -30,9 +30,6 @@ def test_borgmatic_files(host):
     passphrase = host.file('/opt/docker-borgmatic/borgmatic/passphrase')
     config = host.file('/opt/docker-borgmatic/borgmatic/config.yaml')
     jobber = host.file('/opt/docker-borgmatic/borgmatic/.jobber')
-    run_borgmatic = host.file(
-        '/opt/docker-borgmatic/borgmatic/run-borgmatic.sh'
-    )
     before_backup = host.file(
         '/opt/docker-borgmatic/borgmatic/before-backup.sh'
     )
@@ -49,7 +46,7 @@ def test_borgmatic_files(host):
         assert file.user == 'root'
         assert file.group == 'root'
 
-    for file in [run_borgmatic, before_backup, after_backup, failed_backup]:
+    for file in [before_backup, after_backup, failed_backup]:
         assert file.exists
         assert file.mode == 0o0500
         assert file.user == 'root'
