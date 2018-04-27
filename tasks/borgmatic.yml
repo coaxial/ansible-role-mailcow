@@ -35,8 +35,6 @@
     - name: "{{ mailcow__ssh_key_name }}"
     - name: "{{ mailcow__ssh_key_name }}.pub"
     - name: passphrase
-    - name: run-borgmatic.sh
-      mode: '0500'
     - name: before-backup.sh
       mode: '0500'
     - name: failed-backup.sh
