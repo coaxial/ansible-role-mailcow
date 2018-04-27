@@ -9,7 +9,7 @@
     repo: 'https://github.com/coaxial/docker-borgmatic'
     update: true
     dest: /opt/docker-borgmatic
-    version: setup
+    version: master
   notify: update borgmatic container
 
 - name: Create borgmatic directories
