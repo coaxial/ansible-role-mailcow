@@ -2,8 +2,7 @@
 #!/usr/bin/with-contenv sh
 
 timestamp() {
-  # ISO-8601 format
-  date -I'seconds'
+  date -I'seconds' # ISO-8601 format
 }
 
 notify_admin() {

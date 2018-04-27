@@ -5,7 +5,7 @@ COMPRESSED_BACKUPS_PATH="$(find /backup \( -type d -name 'mailcow-*' \) | sort |
 DECOMPRESSED_BACKUPS_PATH=/backup/mailcow/
 
 timestamp() {
-  date -I'seconds' #ISO-8601 format
+  date -I'seconds' # ISO-8601 format
 }
 
 cleanup() {
@@ -20,8 +20,6 @@ last_backup_info() {
   # vars will be replaced by Ansible's templating engine
   # shellcheck disable=SC1083
   last_backup_name="$(borg list --short --last 1 {{ mailcow__borg_repo_host }}:{{ mailcow__borg_repo_name }})"
-
-  # BORG_REMOTE_PATH=borg1 BORG_PASSCOMMAND="cat /borgmatic/passphrase" BORG_RSH='ssh -i /borgmatic/backup_rsa'
 
   borg info "{{ mailcow__borg_repo_host }}:{{ mailcow__borg_repo_name }}::${last_backup_name}"
 }

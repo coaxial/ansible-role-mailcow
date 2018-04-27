@@ -5,7 +5,7 @@ COMPRESSED_BACKUPS_PATH="$(find /backup \( -type d -name 'mailcow-*' \) | sort |
 DECOMPRESSED_BACKUPS_PATH=/backup/mailcow/
 
 timestamp() {
-  date -I'seconds' #ISO-8601 format
+  date -I'seconds' # ISO-8601 format
 }
 
 extract_files() {
@@ -21,7 +21,6 @@ extract_files() {
   done
 
   zcat "${GZ_FILE}" > ${DECOMPRESSED_BACKUPS_PATH}/backup_mysql
-  # gunzip "${GZ_FILE}" && mv backup_mysql ${DECOMPRESSED_BACKUPS_PATH}
 }
 
 echo "$(timestamp) - Starting backup"
