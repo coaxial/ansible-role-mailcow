@@ -6,7 +6,6 @@
   notify:
     - "format swap"
     - "enable swap for session"
-  when: mailcow__enable_swap
 
 - name: Set permissions on swapfile
   file:
@@ -14,7 +13,6 @@
     mode: 0600
     owner: root
     group: root
-  when: mailcow__enable_swap
 
 - name: Enable swap permanently
   lineinfile:
@@ -22,13 +20,11 @@
     state: present
     regexp: '^\/swapfile'
     line: '/swapfile  none  swap  sw  0 0'
-  when: mailcow__enable_swap
 
 - name: Set swappiness (current session)
   sysctl:
     key: vm.swappiness
     value: 10
-  when: mailcow__enable_swap
 
 - name: Set swappiness
   lineinfile:
@@ -36,13 +32,11 @@
     state: present
     regexp: '^vm\.swappiness'
     line: 'vm.swappiness=10'
-  when: mailcow__enable_swap
 
 - name: Set cache pressure (current session)
   sysctl:
     key: vm.vfs_cache_pressure
     value: 50
-  when: mailcow__enable_swap
 
 - name: Set cache pressure
   lineinfile:
@@ -50,4 +44,3 @@
     state: present
     regexp: '^vm\.vfs_cache_pressure'
     line: 'vm.vfs_cache_pressure=50'
-  when: mailcow__enable_swap
