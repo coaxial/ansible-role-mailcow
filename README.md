@@ -42,7 +42,7 @@ In the `files/` directory:
 
 name | purpose | note
 ---|---|---
-`borg_ssh_key{,.pub}` | ssh keys for connecting to the remote borg repo (set the `mailcow__ssh_key_name` if not using the default name). Only used if `mailcow__enable_backups` is set to `true`
+`borg_ssh_key{,.pub}` | ssh keys for connecting to the remote borg repo (set the `mailcow__ssh_key_name` if not using the default name). | only used if `mailcow__enable_backups` is set to `true`
 `passphrase` | remote borg repo passphrase | only if `mailcow__enable_backups`
 `known_hosts` | custom known_hosts file for the borgmatic container to avoid unknown key errors | cf. `mailcow__skip_known_hosts` variable above. To get an up to date key for your server, run `ssh-keyscan 93.184.216.34`. Only used if `mailcow__enable_backups` is `true`
 
