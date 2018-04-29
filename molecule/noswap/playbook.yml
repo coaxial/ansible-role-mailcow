@@ -1,0 +1,30 @@
+---
+- name: Converge
+  hosts: all
+  pre_tasks:
+    - name: Install pip
+      package:
+        name: python-pip
+        state: present
+
+    - name: Install pip deps
+      pip:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - docker
+        - docker-py
+        - docker-compose
+  roles:
+    - role: ansible-role-mailcow
+  vars:
+    # the mailcow service won't start in testing mode, I give
+    # up. Setting testing mode will skip starting the mailcow
+    # docker containers
+    mailcow__testing: true
+    mailcow__borg_repo_host: user@example.com
+    mailcow__hostname: test
+    mailcow__dbpass: test
+    mailcow__dbroot: test
+    mailcow__skip_known_hosts: true
+    mailcow__enable_swap: false

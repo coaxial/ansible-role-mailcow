@@ -48,8 +48,6 @@
 - name: Disable backup generation
   cron:
     name: generate mailcow backup
-    job: 'export BACKUP_LOCATION=/var/backup && /opt/mailcow-dockerized/helper-scripts/backup_and_restore.sh backup all'
-    special_time: hourly
     state: absent
   when: not mailcow__enable_backups
   notify:
