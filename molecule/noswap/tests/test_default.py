@@ -7,6 +7,6 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 def test_swap_file(host):
-    swapfile = host.file('/swapfile')
+    f = host.file('/swapfile')
 
-    assert not swapfile.exists
+    assert not f.exists
