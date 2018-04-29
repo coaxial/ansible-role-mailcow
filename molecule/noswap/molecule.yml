@@ -7,7 +7,13 @@ lint:
   name: yamllint
 platforms:
   - name: instance
-    image: centos:7
+    image: geerlingguy/docker-ubuntu1604-ansible
+    privileged: true
+    command: /sbin/init
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
   lint:
