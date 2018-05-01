@@ -21,7 +21,7 @@
     # the mailcow service won't start in testing mode, I give
     # up. Setting testing mode will skip starting the mailcow
     # docker containers
-    mailcow__testing: true
+    # mailcow__testing: true
     mailcow__borg_repo_host: user@example.com
     mailcow__hostname: test
     mailcow__dbpass: test
