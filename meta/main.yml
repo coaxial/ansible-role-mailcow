@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: coaxial
-  description: Install mailcow-dockerized
+  description: Mailcow in Docker containers + hourly backups with borg
   company: 64b.it
   issue_tracker_url: https://github.com/coaxial/ansible-mailcow-role/issues
   license: CC-BY
@@ -10,5 +10,11 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - xenial
-  galaxy_tags: []
+  galaxy_tags:
+    - mailcow
+    - mail server
+    - borg
+    - backup
+    - email
+    - email server
   dependencies: []
