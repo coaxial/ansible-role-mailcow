@@ -3,8 +3,6 @@
   docker_service:
     project_src: /opt/mailcow-dockerized
     pull: true
-    build: true
-    recreate: always
     state: present
   when: not mailcow__testing
 
