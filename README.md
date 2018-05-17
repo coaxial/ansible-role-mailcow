@@ -1,4 +1,5 @@
 # `mailcow` role
+[![Build Status](https://travis-ci.org/coaxial/ansible-role-mailcow.svg?branch=master)](https://travis-ci.org/coaxial/ansible-role-mailcow)
 
 This playbook will setup a mailcow email server and hourly borg backups (optional, see Variables to disable)
 Backups are saved to `/var/backup` and removed once handled by borg.
