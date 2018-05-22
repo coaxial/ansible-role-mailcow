@@ -29,7 +29,6 @@ consistency:
   checks:
     - repository
     - archives
-    - extract
   check_last: 3
 
 hooks:
