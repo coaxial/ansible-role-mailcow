@@ -14,6 +14,7 @@
     rule: allow
     port: "{{ item }}"
   with_items:
+    - 22
     - 25
     - 80
     - 110
