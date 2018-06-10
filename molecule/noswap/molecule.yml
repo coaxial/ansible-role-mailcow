@@ -7,7 +7,7 @@ lint:
   name: yamllint
 platforms:
   - name: instance
-    image: geerlingguy/docker-ubuntu1604-ansible
+    image: solita/ubuntu-systemd:16.04
     privileged: true
     command: /sbin/init
     capabilities:
