@@ -5,7 +5,7 @@ This playbook will setup a mailcow email server and hourly borg backups (optiona
 Backups are saved to `/var/backup` and removed once handled by borg.
 The last 24 hourly, 7 daily, 4 weekly, 6 monthly and 1 yearly backups are kept.
 
-Min config for the mailcow host is 1Ghz CPU, 1GB RAM, 5GB disk. Recommended is 1.5GB RAM + swap. Plan additional storage space for generating the hourly backup, and for the optional swap file (1x the RAM)
+Min config for the mailcow host is 1Ghz CPU, 1GB RAM, 5GB disk. Recommended is 1.5GB RAM + swap if clamd is enabled. Plan additional storage space for generating the hourly backup, and for the optional swap file (1x the RAM)
 
 ## Prerequisites
 
@@ -62,13 +62,15 @@ Minimal playbook:
 ---
 - hosts: all
   become: true
-  gather_facts: true
+  gather_facts: false
   vars:
     mailcow__borg_repo_host: user@example.com
     mailcow__hostname: test
     mailcow__dbpass: test
     mailcow__dbroot: test
+    rawpython__os_family: Debian
 
   roles:
+    - coaxial.raw-python  # bootstrap python on bare Ubuntu/Debian
     - coaxial.mailcow
 ```

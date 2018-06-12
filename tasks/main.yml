@@ -2,7 +2,6 @@
 - include_tasks: refresh_apt.yml
 - include_tasks: swap.yml
   when: mailcow__enable_swap
-- include_tasks: firewall.yml
 - include_tasks: timesync.yml
 - include_tasks: borgmatic.yml
   when: mailcow__enable_backups
