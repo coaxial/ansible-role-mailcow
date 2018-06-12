@@ -35,6 +35,7 @@ name | purpose | default value | note
 `mailcow__ntp_servers` | override default ntp servers for synchronizing the time on the docker host. | `0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org` | must be a string of space separated hostnames/FQDNs/IPs
 `mailcow__enable_swap` | use a swap file (recomended for hosts with less than 3GB of RAM) | `true` | will create a swapfile at /swapfile that is the same size as the amoung of RAM on the host
 `mailcow__enable_backups` | enable hourly backups to a borg repository | `true` | set to `true` or `false`
+`mailcow__git_version` | checkout a specific version of mailcow | `master` | any commit, branch name, or tag from the mailcow git repo
 
 
 ## Files
