@@ -8,19 +8,3 @@
   ufw:
     state: enabled
     policy: deny
-
-- name: Open ports
-  ufw:
-    rule: allow
-    port: "{{ item }}"
-  with_items:
-    - 25
-    - 80
-    - 110
-    - 143
-    - 443
-    - 465
-    - 587
-    - 993
-    - 995
-    - 4190
