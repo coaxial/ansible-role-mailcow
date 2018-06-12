@@ -15,3 +15,4 @@ mailcow__enable_swap: true
 mailcow__testing: false
 mailcow__skip_known_hosts: false
 mailcow__enable_backups: true
+mailcow__git_version: master

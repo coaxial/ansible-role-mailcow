@@ -7,7 +7,7 @@
 - name: Clone mailcow repo
   git:
     repo: 'https://github.com/mailcow/mailcow-dockerized'
-    version: f0eca3fe7b46960fde264d44413bfb499d18f002
+    version: "{{ mailcow__git_version }}"
     umask: '022'
     update: true
     dest: /opt/mailcow-dockerized
