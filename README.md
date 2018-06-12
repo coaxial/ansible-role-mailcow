@@ -19,6 +19,7 @@ Min config for the mailcow host is 1Ghz CPU, 1GB RAM, 5GB disk. Recommended is 1
 name | purpose | default value | note
 ---|---|---|---
 `mailcow__hostname` | set the `MAILCOW_HOSTNAME` in `mailcow.conf` (cf. https://mailcow.github.io/mailcow-dockerized-docs/install/) | not set | must be set
+`mailcow__additional_san` | set the `ADDITIONAL_SAN` in `mailcow.conf` to allow for extra domains (cf. https://mailcow.github.io/mailcow-dockerized-docs/firststeps-ssl/#additional-domain-names) | undefined, optional | comma separated values: `lala.example.com,yay.example.org` (do not repeat the `mailcow__hostname`)
 `mailcow__skip_known_hosts` | whether to use a custom `known_hosts` file for the borgmatic backups | `false` | `true` or `false`, lets the borgmatic container connect to a remote borg repo without prompting about accepting the key
 `mailcow__dbpass` | set the `dbpass` in `mailcow.conf` (cf. https://mailcow.github.io/mailcow-dockerized-docs/install/) | not set | must be set
 `mailcow__dbroot` | set the `dbroot` in `mailcow.conf` (cf. https://mailcow.github.io/mailcow-dockerized-docs/install/) | not set | must be set
